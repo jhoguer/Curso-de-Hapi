@@ -4,6 +4,7 @@ const Hapi = require('@hapi/hapi')
 const handlerbars = require('handlebars')
 const inert = require('@hapi/inert')
 const path = require('path')
+const routes = require('./routes')
 const vision = require('@hapi/vision')
 
 const server = Hapi.server({
@@ -33,27 +34,8 @@ async function init () {
       layoutPath: 'views'
     })
 
+    server.route(routes)
 
-    server.route({
-      method: 'GET',
-      path: '/',
-      handler: (req, h) => {
-        return h.view('index', {
-          title: 'home'
-        })
-      }
-    })
-  
-    server.route({
-      method: 'GET',
-      path: '/{param*}',
-      handler: {
-        directory: {
-          path: '.',
-          index: ['index.html']
-        }
-      }
-    })
     await server.start()
   } catch (error) {
     console.error(error)
