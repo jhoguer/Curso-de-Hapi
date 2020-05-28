@@ -52,7 +52,15 @@ const validateUser = async (req, h) => {
 
 // Si falla la Validacion
 const failValidation = (req, h, err) => {
-  return Boom.badRequest('Fallo la validacion', req.payload)
+  const templates = {
+    '/create-user': 'register',
+    '/validate-user': 'login'
+  }
+
+  return h.view(templates[req.path], {
+    title: 'Error de validaciion',
+    error: 'Por favor complete los campos requeridos'
+  }).code(400).takeover()
 }
 
 module.exports = {
