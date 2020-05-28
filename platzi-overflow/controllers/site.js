@@ -12,7 +12,14 @@ const register = (req, h) => {
   })
 }
 
+const login = (req, h) => {
+  return h.view('login', {
+    title: 'Ingrese'
+  })
+}
+
 module.exports = {
   register: register,
   home: home,
+  login: login
 }

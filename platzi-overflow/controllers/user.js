@@ -1,6 +1,6 @@
 'use strict'
 
-const users = require('../models/index').users
+const { users } = require('../models/index')
 
 const createUser = async (req, h) => {
   let result
@@ -15,6 +15,19 @@ const createUser = async (req, h) => {
   return h.response(`Usuario creado ID: ${result}`)
 }
 
+const validateUser = async (req, h) => {
+  let result
+  try {
+    result = await users.validateUser(req.payload)
+  } catch (error) {
+    console.error(error)
+    return h.response('Problemas validando el usuario').code(500)
+  }
+
+  return result
+}
+
 module.exports = {
-  createUser: createUser
+  createUser: createUser,
+  validateUser: validateUser
 }
