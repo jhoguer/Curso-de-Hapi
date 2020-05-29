@@ -54,7 +54,8 @@ const validateUser = async (req, h) => {
 const failValidation = (req, h, err) => {
   const templates = {
     '/create-user': 'register',
-    '/validate-user': 'login'
+    '/validate-user': 'login',
+    '/create-question': 'ask'
   }
 
   return h.view(templates[req.path], {
